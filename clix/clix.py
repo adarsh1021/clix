@@ -1,7 +1,7 @@
 import json
 import xerox, pythoncom
 from pyHook import HookManager
-from gui import clipboard
+from .gui import clipboard
 
 # clipboard
 clips = []
