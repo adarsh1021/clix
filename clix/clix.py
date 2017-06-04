@@ -1,7 +1,7 @@
 import json
-import xerox
-from .pyxhook import HookManager
-from .gui import clipboard
+import xerox, pythoncom
+from pyHook import HookManager
+from gui import clipboard
 
 # clipboard
 clips = []
@@ -12,23 +12,24 @@ prev_Key = None
 
 def OnKeyPress(event):
 	global prev_Key, active
-	if event.Key == 'space' and prev_Key == 'Control_L' and active == 0:
+	if event.Key == 'Space' and prev_Key == 'Lcontrol' and active == 0:
 		active = 1
 		clipboard(clips)
 		active = 0
 		prev_Key = None
-	elif event.Key == 'c' and prev_Key == 'Control_L':
+	elif event.Key == 'C' and prev_Key == 'Lcontorl':
 		text = xerox.paste(xsel = True)
 		clips.append(text)
 		print("You just copied: {}".format(text))
 	else:
 		prev_Key = event.Key
+		print(prev_Key)
 
 def main():
 	new_hook = HookManager()
 	new_hook.KeyDown = OnKeyPress
 	new_hook.HookKeyboard()
-	new_hook.start()
+	pythoncom.PumpMessages()
 
 
 if __name__ == "__main__":
