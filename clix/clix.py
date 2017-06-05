@@ -63,6 +63,9 @@ elif platform=='win32':
 		else:
 			prev_Key = event.Key
 
+		print (prev_Key)
+		return True
+
 	def main():
 		new_hook = HookManager()
 		new_hook.KeyDown = OnKeyPress
