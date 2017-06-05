@@ -63,7 +63,7 @@ elif platform=='win32':
 		else:
 			prev_Key = event.Key
 
-		print (prev_Key)
+		# print (prev_Key)
 		return True
 
 	def main():
