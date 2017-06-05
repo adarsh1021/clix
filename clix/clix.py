@@ -1,6 +1,6 @@
 import json
 import xerox
-from gui import clipboard
+from .gui import clipboard
 from sys import platform
 if platform == 'linux' or platform == 'linux2':
 	from .pyxhook import HookManager
