@@ -7,10 +7,15 @@ An easy to use clipboard manager made using tkinter.
 
 ![](https://media.giphy.com/media/l0IymVaUaR5xGRQHK/giphy.gif)
 
-**Note:** Currently, clix works only on **Linux** systems.
+**Note:** Currently, clix works on **Linux** and **Windows** systems.
 
 ## Installation
-
+- To install pyHook : (only for windows)<br>
+    - Download pyHook for your system from <a href='http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook'>here </a><br>
+    - Now run <br>
+    ```
+    pip install [FILENAME].whl
+    ```
 - To install clix, simply,
 
 	```
