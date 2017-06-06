@@ -20,3 +20,4 @@ available_keys_win = {
 	'RSHIFT' : 'Rshift',
 	'SPACE' : 'Space'
 }
+

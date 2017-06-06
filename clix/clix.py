@@ -24,7 +24,6 @@ prev_Key = None
 # path to site package
 curr_dir = os.getcwd()
 
-# loading key_binding from config file
 try :
     with open(curr_dir + "/clix/config", "rb") as f: #change to curr_dir + /clix/config before build
         key_binding = pickle.load(f)
@@ -33,10 +32,9 @@ except FileNotFoundError :
         key_binding = [available_keys['LCTRL'], available_keys['SPACE']]
         pickle.dump(key_binding, f, protocol=2)
 
-
 def OnKeyPress(event):
     """
-    function called when any key is p ressed
+    function called when any key is pressed
     """
     global prev_Key, active, key_binding
 
@@ -80,10 +78,6 @@ def main():
     main function (CLI endpoint)
     """
     global key_binding
-
-    # key_binding = [available_keys['LCTRL'], available_keys['SPACE']]
-
-    # print (key_binding, available_keys) # del
 
     parser = argparse.ArgumentParser()
     
