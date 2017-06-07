@@ -56,8 +56,7 @@ def OnKeyPress(event):
     else:
         prev_Key = event.Key
 
-    if current_os == 'win':
-        return True
+    return True
 
 
 def _show_available_keybindings():
