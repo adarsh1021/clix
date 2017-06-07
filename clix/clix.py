@@ -4,15 +4,18 @@ import xerox
 import pickle
 import argparse
 from .gui import clipboard
+
 global current_os
 if sys.platform == 'linux' or sys.platform == 'linux2':
     from .pyxhook import HookManager
     from .utils import available_keys
+
     current_os = 'linux'
 elif sys.platform == 'win32':
     import pythoncom
     from pyHook import HookManager
     from .utils import available_keys_win as available_keys
+
     current_os = 'win'
 
 # clipboard
@@ -24,13 +27,14 @@ prev_Key = None
 # path to site package
 curr_dir = os.getcwd()
 
-try :
-    with open(curr_dir + "/clix/config", "rb") as f: #change to curr_dir + /clix/config before build
+try:
+    with open(curr_dir + "/clix/config", "rb") as f:  # change to curr_dir + /clix/config before build
         key_binding = pickle.load(f)
-except :
+except:
     with open(curr_dir + "/clix/config", "wb") as f:
         key_binding = [available_keys['LCTRL'], available_keys['SPACE']]
         pickle.dump(key_binding, f, protocol=2)
+
 
 def OnKeyPress(event):
     """
@@ -45,7 +49,7 @@ def OnKeyPress(event):
         prev_Key = None
 
     elif event.Key == 'c' or event.Key == 'C' and 'CONTROL' in prev_Key.upper():
-        text = xerox.paste() # setting xsel=True in windows caused error
+        text = xerox.paste()  # setting xsel=True in windows caused error
         clips.append(text)
         print("You just copied: {}".format(text))
 
@@ -55,11 +59,12 @@ def OnKeyPress(event):
     if current_os == 'win':
         return True
 
+
 def _show_available_keybindings():
     """
     function to show available keys
     """
-    print("Available Keys: "+"\n")
+    print("Available Keys: " + "\n")
     for key in available_keys:
         print(key)
 
@@ -80,22 +85,22 @@ def main():
     global key_binding
 
     parser = argparse.ArgumentParser()
-    
+
     help = """Set alternate key binding. Default is LCTRL+SPACE
                 Format :- <KEY1>+<KEY2>. Ex:- RCTRL+RALT .
-                To see availble key bindings use 'clix -a' option"""
-    
-    parser.add_argument("-s", "--set-keybinding", type = str,
-                        default = None, help = help)
+                To see available key bindings use 'clix -a' option"""
+
+    parser.add_argument("-s", "--set-keybinding", type=str,
+                        default=None, help=help)
 
     parser.add_argument("-a", "--show-available-keybindings",
-                        help = "Show available key bindings", action = "store_true")
-    
-    parser.add_argument("-c", "--show-current-keybinding", action = "store_true")
-    
+                        help="Show available key bindings", action="store_true")
+
+    parser.add_argument("-c", "--show-current-keybinding", action="store_true")
+
     args = parser.parse_args()
     args_dict = vars(args)
-    
+
     if args.show_current_keybinding:
         print("Current key binding is: {}".format(get_current_keybinding()))
         sys.exit()
@@ -103,7 +108,7 @@ def main():
     elif args.show_available_keybindings:
         _show_available_keybindings()
         sys.exit()
-    
+
     elif args.set_keybinding:
         try:
             keys = args_dict['set_keybinding'].split('+')
@@ -112,7 +117,7 @@ def main():
             print("Please follow the correct format.")
         else:
             with open(curr_dir + "/clix/config", "wb") as f:
-                pickle.dump(key_binding, f, protocol = 2)
+                pickle.dump(key_binding, f, protocol=2)
         finally:
             sys.exit()
 
@@ -120,7 +125,7 @@ def main():
     new_hook = HookManager()
     new_hook.KeyDown = OnKeyPress
     new_hook.HookKeyboard()
-    if current_os == 'linux' :
+    if current_os == 'linux':
         new_hook.start()
     elif current_os == 'win':
         pythoncom.PumpMessages()
