@@ -44,7 +44,7 @@ def OnKeyPress(event):
         active = 0
         prev_Key = None
 
-    elif event.Key == 'c' or event.Key == 'C' and prev_Key == key_binding[0]:
+    elif event.Key == 'c' or event.Key == 'C' and 'CONTROL' in prev_Key.upper():
         text = xerox.paste() # setting xsel=True in windows caused error
         clips.append(text)
         print("You just copied: {}".format(text))
