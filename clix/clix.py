@@ -27,7 +27,7 @@ curr_dir = os.getcwd()
 try :
     with open(curr_dir + "/clix/config", "rb") as f: #change to curr_dir + /clix/config before build
         key_binding = pickle.load(f)
-except FileNotFoundError :
+except :
     with open(curr_dir + "/clix/config", "wb") as f:
         key_binding = [available_keys['LCTRL'], available_keys['SPACE']]
         pickle.dump(key_binding, f, protocol=2)
