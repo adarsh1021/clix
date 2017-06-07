@@ -9,13 +9,11 @@ global current_os
 if sys.platform == 'linux' or sys.platform == 'linux2':
     from .pyxhook import HookManager
     from .utils import available_keys
-
     current_os = 'linux'
 elif sys.platform == 'win32':
     import pythoncom
     from pyHook import HookManager
     from .utils import available_keys_win as available_keys
-
     current_os = 'win'
 
 # clipboard
